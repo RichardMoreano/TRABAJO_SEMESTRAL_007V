@@ -22,6 +22,10 @@ public class Pedido {
     private Usuario usuario;
 
     @ManyToOne
+    @JoinColumn(name = "id_curso_fk", nullable = false)
+    private Curso curso;
+
+    @ManyToOne
     @JoinColumn(name = "id_tipoPedido_fk", nullable = false)
     private Pedido pedido;
 
