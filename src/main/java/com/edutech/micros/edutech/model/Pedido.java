@@ -22,14 +22,12 @@ public class Pedido {
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_curso_fk", nullable = false)
-    private Curso curso;
-
-    @ManyToOne
     @JoinColumn(name = "id_tipoPedido_fk", nullable = false)
     private Pedido pedido;
 
     @ManyToOne
     @JoinColumn(name = "id_contenido_fk", nullable = false)
-    private Pedido pedido;
+    private Contenido contenido;
+
+// ocupa todos los atributos de las tablas llamadas
 }
