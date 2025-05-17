@@ -28,4 +28,8 @@ public class Pedido {
     @ManyToOne
     @JoinColumn(name = "id_tipoPedido_fk", nullable = false)
     private Pedido pedido;
+
+    @ManyToOne
+    @JoinColumn(name = "id_contenido_fk", nullable = false)
+    private Pedido pedido;
 }
