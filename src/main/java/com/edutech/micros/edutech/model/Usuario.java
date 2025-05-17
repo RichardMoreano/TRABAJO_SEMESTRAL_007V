@@ -28,8 +28,8 @@ public class Usuario {
     private String correo;
 
     @ManyToOne
-    @JoinColumn(name = "id_pedido_fk", nullable = false)
-    private Pedido pedido;
+    @JoinColumn(name = "id_pago_fk", nullable = false)
+    private Pago pago;
 
 }
 
