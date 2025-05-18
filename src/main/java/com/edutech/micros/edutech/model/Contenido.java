@@ -2,8 +2,6 @@ package com.edutech.micros.edutech.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.List;
-
 
 @Entity
 @Table(name = "contenido")
@@ -11,6 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Contenido {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,5 +17,4 @@ public class Contenido {
     private String titulo;
     private String descripcion;
     private String tipo;
-
 }
