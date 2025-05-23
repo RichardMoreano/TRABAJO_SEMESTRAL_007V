@@ -26,7 +26,7 @@ public class UsuarioService {
     }
     // buscar por nombre y apellido
     public List<Usuario> findByNombreCompleto(String nombre, String apellido){
-        return usuarioRepository.findByNombreCompleto(nombre,apellido);
+        return usuarioRepository.findByNombreAndApellido(nombre,apellido);
     }
 
     // buscar por id

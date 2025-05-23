@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 // añade constructures vacios y completos
 
 @Entity
@@ -32,9 +34,9 @@ public class Usuario {
     private String correo;
 // conecta usuario con pedido con la foreign key id de pedido llama todos los atributos
 
-    @ManyToOne
-    @JoinColumn(name = "id_pago_fk", nullable = false)
-    private Pago pago;
+    @OneToMany(mappedBy = "usuario")
+    private List<Pedido> pedidos;
+
 
 }
 

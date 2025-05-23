@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "pedido")
 @Data
@@ -15,19 +17,22 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int precio;
+    @Column(name = "fecha", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecha;
+
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_Pago_fk", nullable = false)
+    private TipoPago tipoPago;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario_fk", nullable = false)
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_tipoPedido_fk", nullable = false)
-    private Pedido pedido;
-
-    @ManyToOne
     @JoinColumn(name = "id_contenido_fk", nullable = false)
     private Contenido contenido;
+
 
 // ocupa todos los atributos de las tablas llamadas
 }

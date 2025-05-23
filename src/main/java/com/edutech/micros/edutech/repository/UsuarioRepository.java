@@ -2,16 +2,16 @@ package com.edutech.micros.edutech.repository;
 
 import com.edutech.micros.edutech.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import java.util.List;
 
-@Repository
+import java.util.List;
+import java.util.Optional;
+
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     List<Usuario> findAll();
+    Optional<Usuario> findTopByOrderByIdDesc();
 
-    List<Usuario> findByNombreCompleto(String nombre, String apellido);
 
     Usuario findByCorreo(String correo);
+    List<Usuario> findByNombreAndApellido(String nombre, String apellido);
 
-    Usuario findByRut(int run);
 }
