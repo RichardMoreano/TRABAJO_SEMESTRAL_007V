@@ -21,18 +21,21 @@ public class UsuarioService {
     }
 
     // buscar por correo
-    public Usuario findByCorreo(String correo){
+    public Usuario findCorreo(String correo){
         return usuarioRepository.findByCorreo(correo);
     }
+
+
     // buscar por nombre y apellido
     public List<Usuario> findByNombreCompleto(String nombre, String apellido){
         return usuarioRepository.findByNombreAndApellido(nombre,apellido);
     }
 
     // buscar por id
-    public Usuario findById(long id){
-        return usuarioRepository.findById(id).get();
+    public Usuario findByIdusuario(long id){
+        return usuarioRepository.findById(id);
     }
+
     // crear usuario
     public Usuario save(Usuario usuario){
         return usuarioRepository.save(usuario);
@@ -43,5 +46,7 @@ public class UsuarioService {
     public void delete(long id){
         usuarioRepository.deleteById(id);
     }
+
+    public Usuario updateUsuario(Usuario usuario){return usuarioRepository.updateByUsuario(usuario);}
 }
 
