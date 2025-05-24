@@ -21,6 +21,16 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
+    // buscar por id
+    public Usuario findByIdusuario(long id) {
+        return usuarioRepository.findById(id).orElse(null);
+    }
+
+    /*public Usuario findByIdusuario(long id) {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }*/
+
     // buscar por correo
     public List<Usuario> findByCorreo(String correo) {
         return usuarioRepository.findByCorreo(correo);
@@ -32,10 +42,7 @@ public class UsuarioService {
         return usuarioRepository.findByNombreAndApellido(nombre, apellido);
     }
 
-    // buscar por id
-    public Usuario findByIdusuario(long id){
-        return usuarioRepository.findById(id);
-    }
+
 
     // crear usuario
     public Usuario save(Usuario usuario){
@@ -49,7 +56,15 @@ public class UsuarioService {
     }
 
     public Usuario updateUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+        Usuario usuario1 = usuarioRepository.findById(usuario.getId())
+                .orElseThrow(() -> new RuntimeException("Usuario con ID " + usuario.getId() + " no existe"));
+
+        usuario1.setNombre(usuario.getNombre());
+        usuario1.setApellido(usuario.getApellido());
+        usuario1.setCorreo(usuario.getCorreo());
+        usuario1.setRun(usuario.getRun());
+
+        return usuarioRepository.save(usuario1);
     }
 
 }

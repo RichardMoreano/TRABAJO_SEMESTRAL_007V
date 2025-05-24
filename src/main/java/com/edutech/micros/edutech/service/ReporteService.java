@@ -51,6 +51,7 @@ public class ReporteService {
     // Obtiene el último usuario registrado (por ID más alto)
     public String obtenerUltimoUsuario() {
         return usuarioRepository.findTopByOrderByIdDesc()
+
                 .map(u -> u.getNombre() + " " + u.getApellido())
                 .orElse("No hay usuarios");
     }

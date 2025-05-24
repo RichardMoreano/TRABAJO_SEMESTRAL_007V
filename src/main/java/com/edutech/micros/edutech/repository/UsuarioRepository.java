@@ -20,7 +20,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     List<Usuario> findByNombreAndApellido(String nombre, String apellido);
 
-    Usuario findById(long id);
+
 
     Usuario save(Usuario usuario);
 
@@ -36,5 +36,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
         }
         throw new RuntimeException("Usuario no encontrado");
     }
+
+
 
 }
