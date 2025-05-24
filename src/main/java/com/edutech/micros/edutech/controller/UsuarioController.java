@@ -14,7 +14,6 @@ public class UsuarioController {
 
 //se utiliza para hacer inyección de dependencias
  @Autowired
-
     private final UsuarioService usuarioService;
 
     @GetMapping("/")
@@ -35,16 +34,15 @@ public class UsuarioController {
         return usuarioService.findByIdusuario(id);
     }
 
-    /*@GetMapping("/correo")
+    @GetMapping("/correo/{correo}")
     public List<Usuario> findCorreo(@PathVariable String correo) {
-        return usuarioService.findCorreo(correo);
+        return usuarioService.findByCorreo(correo);
+    }
 
-    }*/
-
-    /*@GetMapping("/nombre")
-    public Usuario findNombreCompleto(@PathVariable String nombre, String apellido) {
-        return usuarioService.findByNombreCompleto(nombre,apellido);
-    }*/
+    @GetMapping("/nombre")
+    public List<Usuario> findNombreCompleto(@PathVariable String nombre, @PathVariable String apellido) {
+        return usuarioService.findByNombreCompleto(nombre, apellido);
+    }
 
     /*DELETE: Se utiliza para eliminar un recurso específico en el servidor.*/
     @DeleteMapping("{id}")

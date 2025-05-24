@@ -2,6 +2,7 @@ package com.edutech.micros.edutech.service;
 
 import com.edutech.micros.edutech.model.Usuario;
 import com.edutech.micros.edutech.repository.UsuarioRepository;
+
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,14 +22,14 @@ public class UsuarioService {
     }
 
     // buscar por correo
-    public Usuario findCorreo(String correo){
+    public List<Usuario> findByCorreo(String correo) {
         return usuarioRepository.findByCorreo(correo);
     }
 
 
     // buscar por nombre y apellido
-    public List<Usuario> findByNombreCompleto(String nombre, String apellido){
-        return usuarioRepository.findByNombreAndApellido(nombre,apellido);
+    public List<Usuario> findByNombreCompleto(String nombre, String apellido) {
+        return usuarioRepository.findByNombreAndApellido(nombre, apellido);
     }
 
     // buscar por id
