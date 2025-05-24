@@ -5,6 +5,8 @@ import com.edutech.micros.edutech.service.ContenidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import java.util.List;
 
 @RestController
@@ -27,15 +29,18 @@ public class ContenidoController {
     public ResponseEntity<Contenido> obtenerContenido(@PathVariable Long id) {
         Contenido contenido = contenidoService.findById(id);
         if (contenido == null) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(contenido);
     }
 
     @PostMapping
-    public ResponseEntity<Contenido> crearContenido(@RequestBody Contenido contenido) {
+    public ResponseEntity<Contenido> crearContenido(@RequestBody Contenido contenido, UriComponentsBuilder uriBuilder) {
         Contenido contenidoNuevo = contenidoService.save(contenido);
-        return ResponseEntity.ok(contenidoNuevo);
+        return ResponseEntity
+                .created(uriBuilder.path("/api/contenido/{id}")
+                        .buildAndExpand(contenidoNuevo.getId()).toUri())
+                .body(contenidoNuevo);
     }
 
     @PutMapping("/{id}")
@@ -61,6 +66,6 @@ public class ContenidoController {
         }
 
         contenidoService.deleteById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }
