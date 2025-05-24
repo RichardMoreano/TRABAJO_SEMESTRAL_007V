@@ -14,21 +14,22 @@ public class UsuarioController {
 
 //se utiliza para hacer inyección de dependencias
  @Autowired
-    private final UsuarioService usuarioService;
+    private UsuarioService usuarioService;
 
-    @GetMapping("/")
-    public List<Usuario> findAll() {
-        return usuarioService.findAll();
-    }
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-    /*POST: Se utiliza para enviar datos al servidor y crear un nuevo recurso*/
+
+    @GetMapping
+    public List<Usuario> findAll() {
+        return usuarioService.findAll();
+    }
+
     @PostMapping
     public Usuario postUsuario(@RequestBody Usuario usuario) {
         return usuarioService.save(usuario);
     }
-    /*GET: Se utiliza para recuperar un recurso del servidor. Es un métod0 de solo lectura*/
+
     @GetMapping("/{id}")
     public Usuario findUsuario(@PathVariable Long id) {
         return usuarioService.findByIdusuario(id);
@@ -39,12 +40,11 @@ public class UsuarioController {
         return usuarioService.findByCorreo(correo);
     }
 
-    @GetMapping("/nombre")
+    @GetMapping("/nombre/{nombre}/{apellido}")
     public List<Usuario> findNombreCompleto(@PathVariable String nombre, @PathVariable String apellido) {
         return usuarioService.findByNombreCompleto(nombre, apellido);
     }
 
-    /*DELETE: Se utiliza para eliminar un recurso específico en el servidor.*/
     @DeleteMapping("{id}")
     public void deleteUsuario(@PathVariable Long id) {
         usuarioService.delete(id);
@@ -52,6 +52,7 @@ public class UsuarioController {
 
     @PutMapping("/actua")
     public Usuario updateUsuario(@RequestBody Usuario usuario) {
-        return usuarioService.updateUsuario(usuario);
+        return usuarioService.save(usuario); // Usa save() para crear o actualizar
     }
+
 }

@@ -28,8 +28,6 @@ public class ReporteController {
         return ResponseEntity.ok(Map.of("totalUsuarios", total));
     }
 
-
-
     // Retorna cantidad de cursos
     @GetMapping("/total-cursos")
     public ResponseEntity<Map<String, Long>> getTotalCursos() {

@@ -1,5 +1,6 @@
 package com.edutech.micros.edutech.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class Pedido {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario_fk", nullable = false)
+    @JsonBackReference
     private Usuario usuario;
 
     @ManyToOne

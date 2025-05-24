@@ -48,6 +48,9 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    public Usuario updateUsuario(Usuario usuario){return usuarioRepository.updateByUsuario(usuario);}
+    public Usuario updateUsuario(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
+
 }
 
