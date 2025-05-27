@@ -27,15 +27,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Usuario deleteById(long id);
 
 
-    default Usuario updateUsuario(Usuario usuario) {
-        for (int i = 0; i < listaUsuario.size(); i++) {
-            if (listaUsuario.get(i).getId().equals(usuario.getId())) {
-                listaUsuario.set(i, usuario);
-                return usuario;
-            }
-        }
-        throw new RuntimeException("Usuario no encontrado");
-    }
+
 
 
 
