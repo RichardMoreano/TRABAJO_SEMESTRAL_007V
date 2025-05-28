@@ -9,6 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+
+ @Autor dominique Cofre
+
+ */
 @Service
 @Transactional
 public class UsuarioService {

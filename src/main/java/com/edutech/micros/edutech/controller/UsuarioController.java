@@ -9,6 +9,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
+
+
+/**
+
+ @Autor dominique Cofre
+
+ */
+
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {

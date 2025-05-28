@@ -6,6 +6,13 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+
+ @Autor dominique Cofre
+
+ */
+
+
 @Entity
 @Table(name = "usuario")
 @Data

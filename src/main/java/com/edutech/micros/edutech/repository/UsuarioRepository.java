@@ -9,6 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 
+/**
+
+ @Autor dominique Cofre
+
+ */
+
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
