@@ -53,7 +53,7 @@ public class ReporteController {
         return reporteService.obtenerCursosMasVendidos();
     }
 
-    // Retorna cantidad de pagos por tipo
+    // Retorna cantidad de pagos por tipos
     @GetMapping("/pagos-por-tipo")
     public Map<String, Long> getPagosPorTipo() {
         return reporteService.obtenerPagosPorTipo();
