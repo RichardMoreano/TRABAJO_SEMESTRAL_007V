@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+
+ @Autor Richard Moreano
+
+ */
 @RestController
 @RequestMapping("/api/reporte")
 public class ReporteController {

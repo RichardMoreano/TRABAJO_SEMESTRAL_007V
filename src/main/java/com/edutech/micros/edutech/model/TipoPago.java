@@ -4,6 +4,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+
+/**
+
+ @Autor Richard Moreano
+
+ */
 @Entity
 @Table(name = "tipo_Pago")
 @Data

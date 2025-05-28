@@ -8,6 +8,13 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+
+
+/**
+
+ @Autor Richard Moreano
+
+ */
 @Entity
 @Table(name = "pedido")
 @Data
