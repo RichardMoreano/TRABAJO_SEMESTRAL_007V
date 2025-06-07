@@ -26,8 +26,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     List<Usuario> findByNombreAndApellido(String nombre, String apellido);
 
-
-
     Usuario save(Usuario usuario);
 
     Usuario deleteById(long id);
