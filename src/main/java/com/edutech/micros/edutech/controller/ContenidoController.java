@@ -16,6 +16,7 @@ public class ContenidoController {
     @Autowired
     private ContenidoService contenidoService;
 
+    // GET /api/contenido — lista todos los contenidos o no content si está vacío
     @GetMapping
     public ResponseEntity<List<Contenido>> listarContenidos() {
         List<Contenido> contenidos = contenidoService.findAll();
@@ -25,6 +26,7 @@ public class ContenidoController {
         return ResponseEntity.ok(contenidos);
     }
 
+    // GET /api/contenido/{id} — busca contenido por id o retorna 404 si no existe
     @GetMapping("/{id}")
     public ResponseEntity<Contenido> obtenerContenido(@PathVariable Long id) {
         Contenido contenido = contenidoService.findById(id);
@@ -34,6 +36,7 @@ public class ContenidoController {
         return ResponseEntity.ok(contenido);
     }
 
+    // POST /api/contenido — crea nuevo contenido y retorna 201 con Location
     @PostMapping
     public ResponseEntity<Contenido> crearContenido(@RequestBody Contenido contenido, UriComponentsBuilder uriBuilder) {
         Contenido contenidoNuevo = contenidoService.save(contenido);
@@ -43,6 +46,7 @@ public class ContenidoController {
                 .body(contenidoNuevo);
     }
 
+    // PUT /api/contenido/{id} — actualiza contenido existente, 404 si no existe
     @PutMapping("/{id}")
     public ResponseEntity<Contenido> actualizarContenido(@PathVariable Long id, @RequestBody Contenido contenidoNuevo) {
         Contenido contenidoExistente = contenidoService.findById(id);
@@ -53,11 +57,13 @@ public class ContenidoController {
         contenidoExistente.setTitulo(contenidoNuevo.getTitulo());
         contenidoExistente.setDescripcion(contenidoNuevo.getDescripcion());
         contenidoExistente.setTipo(contenidoNuevo.getTipo());
+        contenidoExistente.setPrecio(contenidoNuevo.getPrecio());
 
         contenidoService.save(contenidoExistente);
         return ResponseEntity.ok(contenidoExistente);
     }
 
+    // DELETR /api/contenido/{id  elimina contenido si existe, 404 si no
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarContenido(@PathVariable Long id) {
         Contenido contenidoExistente = contenidoService.findById(id);
@@ -69,3 +75,4 @@ public class ContenidoController {
         return ResponseEntity.noContent().build();
     }
 }
+
