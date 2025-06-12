@@ -133,12 +133,12 @@ public class UsuarioControllerTest {
 
     @Test
     public void testDeleteUsuario() throws Exception {
-        doNothing().when(usuarioService).delete(1L);
+        doNothing().when(usuarioService).deleteUsuario(1L);
 
         mockMvc.perform(delete("/api/usuarios/1"))
                 .andExpect(status().isOk());
 
-        verify(usuarioService, times(1)).delete(1L);
+        verify(usuarioService, times(1)).deleteUsuario(1L);
     }
 
     @Test
