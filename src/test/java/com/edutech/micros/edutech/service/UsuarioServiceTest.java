@@ -128,7 +128,7 @@ public class UsuarioServiceTest {
     public void testDelete() {
         doNothing().when(usuarioRepository).deleteById(1L);
 
-        usuarioService.delete(1L);
+        usuarioService.deleteUsuario(1L);
 
         verify(usuarioRepository, times(1)).deleteById(1L);
     }

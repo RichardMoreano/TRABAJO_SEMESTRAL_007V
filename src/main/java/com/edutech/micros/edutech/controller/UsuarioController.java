@@ -79,7 +79,7 @@ public class UsuarioController {
 
     @DeleteMapping("{id}")
     public void deleteUsuario(@PathVariable Long id) {
-        usuarioService.delete(id);
+        usuarioService.deleteUsuario(id);
     }
 
     @PutMapping("/actua")

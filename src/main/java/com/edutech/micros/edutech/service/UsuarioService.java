@@ -56,9 +56,11 @@ public class UsuarioService {
 
 
     // borrar por id
-    public void delete(long id){
+    public void deleteUsuario(Long id) {
         usuarioRepository.deleteById(id);
     }
+
+
 
     public Usuario updateUsuario(Usuario usuario) {
         Usuario usuario1 = usuarioRepository.findById(usuario.getId())
