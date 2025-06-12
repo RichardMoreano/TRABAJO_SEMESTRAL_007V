@@ -53,12 +53,10 @@ public class ContenidoController {
         if (contenidoExistente == null) {
             return ResponseEntity.notFound().build();
         }
-
         contenidoExistente.setTitulo(contenidoNuevo.getTitulo());
         contenidoExistente.setDescripcion(contenidoNuevo.getDescripcion());
         contenidoExistente.setTipo(contenidoNuevo.getTipo());
         contenidoExistente.setPrecio(contenidoNuevo.getPrecio());
-
         contenidoService.save(contenidoExistente);
         return ResponseEntity.ok(contenidoExistente);
     }

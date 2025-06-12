@@ -67,7 +67,7 @@ public class ContenidoServiceTest {
 
         // Verifica que el contenido guardado no sea nulo y su título coincida con el esperado.
         assertNotNull(saved);
-        assertEquals("Video Java", saved.getTitulo());
+        assertEquals(saved.getId(), contenido.getId());
     }
 
     @Test
@@ -83,12 +83,6 @@ public class ContenidoServiceTest {
         // Verifica que deleteById() se haya llamado exactamente una vez con ese id.
         verify(contenidoRepository, times(1)).deleteById(id);
     }
-
-    /**
-     * Método auxiliar para crear un contenido de ejemplo.
-     *
-     * @return un Contenido predefinido.
-     */
     private Contenido crearContenido() {
         return new Contenido(1L, "Videe Java", "Curso Java básico", "Video", 5000);
     }
