@@ -14,7 +14,7 @@ public class SwaggerConfig {
                 .info(new Info()
                 .title("API 2025 EDUTECH")
                 .version("1.0")
-                .description("documentacion de la API para el sistema EDUTECH"));
+                .description("Documentación de la API para el sistema EDUTECH"));
 
 
     }

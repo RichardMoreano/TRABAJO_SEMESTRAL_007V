@@ -4,41 +4,36 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
-
- @Autor Richard Moreano
-
+  @Autor Richard Moreano
  */
 @Entity
 @Table(name = "tipo_Pago")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "Entidad que representa un tipo de pago")
 public class TipoPago {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "ID único del tipo de pago", example = "1")
     private long id;
+
+    @Schema(description = "Tipo de pago", example = "Efectivo")
     private String tipo;
 }
+
 
 
 /*
 -- SQL para insertar los tipos de pago en la base
 -- de datos en las tabla TipoPago
 
-INSERT INTO tipo_pago (tipo)
-    VALUES ('Tarjeta');
-INSERT INTO tipo_pago (tipo)
-    VALUES ('Efectivo');
-INSERT INTO tipo_pago (tipo)
-    VALUES ('Transferencia');
 
-
-
-    -- TIPOS DE PAGO
+-- TIPOS DE PAGO
 INSERT INTO tipo_Pago (id, tipo) VALUES (1, 'Tarjeta');
 INSERT INTO tipo_Pago (id, tipo) VALUES (2, 'Efectivo');
 INSERT INTO tipo_Pago (id, tipo) VALUES (3, 'Transferencia');
