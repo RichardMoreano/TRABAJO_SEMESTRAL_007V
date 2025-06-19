@@ -1,9 +1,10 @@
 package com.edutech.micros.edutech.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import jakarta.persistence.*;
 import lombok.*;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 
 /**
@@ -18,28 +19,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(unique = true, length = 13, nullable = false)
-    private String run;
-
-    @Column(length = 100, nullable = false)
-    private String nombre;
-
-    @Column(length = 100, nullable = false)
-    private String apellido;
-
-    @Column(unique = true, length = 100, nullable = false)
-    private String correo;
-
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Pedido> pedidos;
-
-    /*@Schema(description = "Entidad que representa un usuario")
+@Schema(description = "Entidad que representa un usuario")
 public class Usuario {
 
     @Id
@@ -67,6 +47,6 @@ public class Usuario {
     @JsonManagedReference
     @ArraySchema(schema = @Schema(description = "Lista de pedidos del usuario"))
     private List<Pedido> pedidos;
-}*/
+
 
 }
