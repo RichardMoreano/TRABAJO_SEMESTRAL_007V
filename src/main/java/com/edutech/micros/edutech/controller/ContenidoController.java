@@ -61,7 +61,7 @@ public class ContenidoController {
         return ResponseEntity.ok(contenidoExistente);
     }
 
-    // DELETR /api/contenido/{id  elimina contenido si existe, 404 si no
+    // DELETER /api/content/{id  eliminate contenido si existe, 404 si no
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarContenido(@PathVariable Long id) {
         Contenido contenidoExistente = contenidoService.findById(id);
