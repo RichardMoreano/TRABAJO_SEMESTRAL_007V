@@ -1,6 +1,8 @@
 package com.edutech.micros.edutech.service;
 
+import com.edutech.micros.edutech.model.Contenido;
 import com.edutech.micros.edutech.model.Pedido;
+import com.edutech.micros.edutech.model.Usuario;
 import com.edutech.micros.edutech.repository.ContenidoRepository;
 import com.edutech.micros.edutech.repository.PedidoRepository;
 import com.edutech.micros.edutech.repository.TipoPagoRepository;
@@ -55,15 +57,34 @@ public class ReporteService {
     }
 
     // Obtiene el último usuario registrado (por ID más alto)
-    public String obtenerUltimoUsuario() {
+
+    public Usuario obtenerUltimoUsuario() {
+        return usuarioRepository.findTopByOrderByIdDesc()
+                .orElse(null); // El controlador manejará si es null
+    }
+
+    /*public String obtenerUltimoUsuario() {
         return usuarioRepository.findTopByOrderByIdDesc()
 
                 .map(u -> u.getNombre() + " " + u.getApellido())
                 .orElse("No hay usuarios");
-    }
+    }*/
 
     // Agrupa por curso y cuenta cuántas veces fue vendido
-    public List<String> obtenerCursosMasVendidos() {
+    public List<Contenido> obtenerCursosMasVendidos() {
+        List<Pedido> pedidos = pedidoRepository.findAll();
+
+        return pedidos.stream()
+                .collect(Collectors.groupingBy(Pedido::getContenido, Collectors.counting()))
+                .entrySet().stream()
+                .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
+                .limit(5)
+                .map(Map.Entry::getKey) // ahora devuelve el Contenido
+                .collect(Collectors.toList());
+    }
+
+
+    /*public List<String> obtenerCursosMasVendidos() {
         List<Pedido> pedidos = pedidoRepository.findAll();
         return pedidos.stream()
                 .collect(Collectors.groupingBy(p -> p.getContenido().getTitulo(), Collectors.counting()))
@@ -72,7 +93,7 @@ public class ReporteService {
                 .limit(5) // Devuelve los 5 cursos más vendidos
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
-    }
+    }*/
 
     // Agrupa por tipo de pago y cuenta cantidad
     public Map<String, Long> obtenerPagosPorTipo() {

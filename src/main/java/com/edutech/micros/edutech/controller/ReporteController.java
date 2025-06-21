@@ -1,5 +1,7 @@
 package com.edutech.micros.edutech.controller;
 
+import com.edutech.micros.edutech.model.Contenido;
+import com.edutech.micros.edutech.model.Usuario;
 import com.edutech.micros.edutech.service.ReporteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -77,9 +80,27 @@ public class ReporteController {
                             content = @Content(examples = @ExampleObject(value = "Benito Camelo"))),
                     @ApiResponse(responseCode = "404", description = "No hay usuarios registrados")
             })
+    public ResponseEntity<String> getUltimoUsuario() {
+        Usuario usuario = reporteService.obtenerUltimoUsuario();
+
+        if (usuario == null) {
+            return ResponseEntity.status(404).body("No hay usuarios registrados");
+        }
+
+        String nombreCompleto = usuario.getNombre() + " " + usuario.getApellido();
+        return ResponseEntity.ok(nombreCompleto);
+    }
+
+    /*@GetMapping("/ultimo-usuario")
+    @Operation(summary = "Obtener último usuario registrado", description = "Obtiene el último usuario registrado en la base de datos",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Operación exitosa",
+                            content = @Content(examples = @ExampleObject(value = "Benito Camelo"))),
+                    @ApiResponse(responseCode = "404", description = "No hay usuarios registrados")
+            })
     public String getUltimoUsuario() {
         return reporteService.obtenerUltimoUsuario();
-    }
+    }*/
 
     // Retorna lista de cursos más vendidos
     @GetMapping("/cursos-mas-vendidos")
@@ -89,9 +110,31 @@ public class ReporteController {
                             content = @Content(examples = @ExampleObject(value = "[\"Java Básico\", \"Spring Boot Pro\", \"Diseño UX/UI\"]"))),
                     @ApiResponse(responseCode = "404", description = "No hay pedidos registrados")
             })
+    public ResponseEntity<?> getCursosMasVendidos() {
+        List<Contenido> cursos = reporteService.obtenerCursosMasVendidos();
+
+        if (cursos == null || cursos.isEmpty()) {
+            return ResponseEntity.status(404).body("No hay pedidos registrados");
+        }
+
+        List<String> titulos = cursos.stream()
+                .map(Contenido::getTitulo)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(titulos);
+    }
+
+
+    /*@GetMapping("/cursos-mas-vendidos")
+    @Operation(summary = "Obtener cursos más vendidos", description = "Devuelve una lista de los 5 cursos más vendidos",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Operación exitosa",
+                            content = @Content(examples = @ExampleObject(value = "[\"Java Básico\", \"Spring Boot Pro\", \"Diseño UX/UI\"]"))),
+                    @ApiResponse(responseCode = "404", description = "No hay pedidos registrados")
+            })
     public List<String> getCursosMasVendidos() {
         return reporteService.obtenerCursosMasVendidos();
-    }
+    }*/
 
     // Retorna cantidad de pagos por tipos
     @GetMapping("/pagos-por-tipo")
