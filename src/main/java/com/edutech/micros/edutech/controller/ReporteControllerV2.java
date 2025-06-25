@@ -68,29 +68,30 @@ public class ReporteControllerV2 {
 
     @GetMapping("/ultimo-usuario")
     @Operation(summary = "Obtener último usuario registrado")
-    public ResponseEntity<EntityModel<Usuario>> getUltimoUsuario() {
-        Usuario usuario = reporteService.obtenerUltimoUsuario();
+    public ResponseEntity<EntityModel<String>> getUltimoUsuario() {
+        String nombreCompleto = reporteService.obtenerUltimoUsuario();
 
-        EntityModel<Usuario> model = usuarioAssembler.toModel(usuario);
-        model.add(linkTo(methodOn(ReporteControllerV2.class).getUltimoUsuario()).withSelfRel());
+        EntityModel<String> model = EntityModel.of(nombreCompleto,
+                linkTo(methodOn(ReporteControllerV2.class).getUltimoUsuario()).withSelfRel());
 
         return ResponseEntity.ok(model);
     }
 
     @GetMapping("/cursos-mas-vendidos")
     @Operation(summary = "Obtener cursos más vendidos")
-    public ResponseEntity<CollectionModel<EntityModel<Contenido>>> getCursosMasVendidos() {
-        List<Contenido> cursos = reporteService.obtenerCursosMasVendidos();
+    public ResponseEntity<CollectionModel<EntityModel<String>>> getCursosMasVendidos() {
+        List<String> titulos = reporteService.obtenerCursosMasVendidos();
 
-        List<EntityModel<Contenido>> cursosModel = cursos.stream()
-                .map(contenidoAssembler::toModel)
+        List<EntityModel<String>> modelos = titulos.stream()
+                .map(titulo -> EntityModel.of(titulo))
                 .collect(Collectors.toList());
 
-        CollectionModel<EntityModel<Contenido>> collectionModel = CollectionModel.of(cursosModel,
+        CollectionModel<EntityModel<String>> collectionModel = CollectionModel.of(modelos,
                 linkTo(methodOn(ReporteControllerV2.class).getCursosMasVendidos()).withSelfRel());
 
         return ResponseEntity.ok(collectionModel);
     }
+
 
     @GetMapping("/pagos-por-tipo")
     @Operation(summary = "Obtener pagos por tipo")
