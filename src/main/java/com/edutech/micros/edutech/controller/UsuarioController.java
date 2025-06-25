@@ -45,6 +45,7 @@ public class UsuarioController {
                             content = @Content(examples = @ExampleObject(value = "[{\"id\": 1, \"nombre\": \"Benito\", \"apellido\": \"Camelo\"}]"))),
                     @ApiResponse(responseCode = "500", description = "Error interno del servidor")
             })
+    @GetMapping
     public List<Usuario> findAll() {
         return usuarioService.findAll();
     }
