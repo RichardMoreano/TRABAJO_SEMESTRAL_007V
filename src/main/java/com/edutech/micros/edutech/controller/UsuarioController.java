@@ -58,7 +58,7 @@ public class UsuarioController {
     @Operation(summary = "Guardar un usuario", description = "Guarda un usuario completamente nuevo",
             responses = {
                     @ApiResponse(responseCode = "201", description = "Usuario creado exitosamente",
-                            content = @Content(examples = @ExampleObject(value = "{\"id\": 1, \"nombre\": \"Elver\", \"Galindo\": \"Pérez\"}"))),
+                            content = @Content(examples = @ExampleObject(value = "{\"id\": 1, \"nombre\": \"Elver\", \"apellido\": \"Pérez}"))),
                     @ApiResponse(responseCode = "400", description = "Datos inválidos")
             })
     public Usuario postUsuario(@RequestBody Usuario usuario) {
@@ -141,11 +141,10 @@ public class UsuarioController {
     @DeleteMapping("{id}")
     @Operation(summary = "Buscar por ID", description = "Busca por el ID del usuario en la base de datos",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Usuario encontrado",
+                    @ApiResponse(responseCode = "200", description = "Usuario eliminado con exito",
                             content = @Content(examples = @ExampleObject(value = "{\"id\": 1, \"nombre\": \"Soyla\", \"apellido\": \"Cerda\"}"))),
                     @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
             })
-    @Parameter(description = "ID del usuario", required = true)
 
     public void deleteUsuario(@PathVariable Long id) {
         usuarioService.deleteUsuario(id);

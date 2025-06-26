@@ -5,17 +5,16 @@ import io.swagger.v3.oas.models.OpenAPI;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
 
+@Configuration
 public class SwaggerConfig {
+
     @Bean
-    public OpenAPI costumOpenAPI(){
+    public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                .title("API 2025 EDUTECH")
-                .version("1.0")
-                .description("Documentación de la API para el sistema EDUTECH"));
-
-
+                        .title("API 2025 EDUTECH")
+                        .version("2.0")
+                        .description("Documentación de la API para el sistema EDUTECH"));
     }
 }
