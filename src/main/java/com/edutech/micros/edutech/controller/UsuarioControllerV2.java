@@ -6,6 +6,10 @@ import com.edutech.micros.edutech.assemblers.UsuarioModelAssembler;
 import com.edutech.micros.edutech.model.Usuario;
 import com.edutech.micros.edutech.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.CollectionModel;
@@ -18,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v2/usuario")
+@RequestMapping("/api/v2/usuarios")
 public class UsuarioControllerV2 {
 
     @Autowired
@@ -107,7 +111,12 @@ public class UsuarioControllerV2 {
 
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Eliminar un usuario por ID")
+    @Operation(summary = "Eliminar un usuario por ID", description = "Busca por el ID del usuario en la base de datos",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Usuario encontrado",
+                            content = @Content(examples = @ExampleObject(value = "{\"id\": 1, \"nombre\": \"Soyla\", \"apellido\": \"Cerda\"}"))),
+                    @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+            })
     public ResponseEntity<?> deleteUsuario(@PathVariable Long id) {
         Usuario usuario = usuarioService.findByIdusuario(id);
 
@@ -117,9 +126,7 @@ public class UsuarioControllerV2 {
 
         usuarioService.deleteUsuario(id);
 
-        return ResponseEntity.ok(EntityModel.of("Usuario eliminado exitosamente",
-                linkTo(methodOn(UsuarioController.class).findAll()).withRel("all-usuarios")
-        ));
+        return ResponseEntity.status(500).body("Usuario eliminado exitosamente");
     }
 
 
