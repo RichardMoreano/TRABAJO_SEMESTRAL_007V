@@ -6,6 +6,7 @@ import com.edutech.micros.edutech.model.Usuario;
 import com.edutech.micros.edutech.model.Contenido;
 import com.edutech.micros.edutech.service.ReporteService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -20,6 +21,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
 @RequestMapping("/api/v2/reporte")
+@Tag(name = "ReportesV2", description = "operaciones relacionadas con la gestion de ReportesV2 HATEOAS")
 public class ReporteControllerV2 {
 
     @Autowired
@@ -55,7 +57,7 @@ public class ReporteControllerV2 {
         return ResponseEntity.ok(model);
     }
 
-    @GetMapping("/curso-mas-caro")
+    /*@GetMapping("/curso-mas-caro")
     @Operation(summary = "Obtener curso más caro")
     public ResponseEntity<EntityModel<String>> getCursoMasCaro() {
         String curso = reporteService.obtenerCursoMasCaro();
@@ -64,9 +66,23 @@ public class ReporteControllerV2 {
                 linkTo(methodOn(ReporteControllerV2.class).getCursoMasCaro()).withSelfRel());
 
         return ResponseEntity.ok(model);
+    }*/
+
+    @GetMapping("/curso-mas-caro")
+    @Operation(summary = "Obtener curso más caro")
+    public ResponseEntity<EntityModel<Map<String, String>>> getCursoMasCaro() {
+        String curso = reporteService.obtenerCursoMasCaro();
+
+        Map<String, String> body = Map.of("Curso", curso);
+
+        EntityModel<Map<String, String>> model = EntityModel.of(body,
+                linkTo(methodOn(ReporteControllerV2.class).getCursoMasCaro()).withSelfRel());
+
+        return ResponseEntity.ok(model);
     }
 
-    @GetMapping("/ultimo-usuario")
+
+    /*@GetMapping("/ultimo-usuario")
     @Operation(summary = "Obtener último usuario registrado")
     public ResponseEntity<EntityModel<String>> getUltimoUsuario() {
         String nombreCompleto = reporteService.obtenerUltimoUsuario();
@@ -75,9 +91,23 @@ public class ReporteControllerV2 {
                 linkTo(methodOn(ReporteControllerV2.class).getUltimoUsuario()).withSelfRel());
 
         return ResponseEntity.ok(model);
+    }*/
+
+    @GetMapping("/ultimo-usuario")
+    @Operation(summary = "Obtener último usuario registrado")
+    public ResponseEntity<EntityModel<Map<String, String>>> getUltimoUsuario() {
+        String nombreCompleto = reporteService.obtenerUltimoUsuario();
+
+        Map<String, String> body = Map.of("Usuario", nombreCompleto);
+
+        EntityModel<Map<String, String>> model = EntityModel.of(body,
+                linkTo(methodOn(ReporteControllerV2.class).getUltimoUsuario()).withSelfRel());
+
+        return ResponseEntity.ok(model);
     }
 
-    @GetMapping("/cursos-mas-vendidos")
+
+    /*@GetMapping("/cursos-mas-vendidos")
     @Operation(summary = "Obtener cursos más vendidos")
     public ResponseEntity<CollectionModel<EntityModel<String>>> getCursosMasVendidos() {
         List<String> titulos = reporteService.obtenerCursosMasVendidos();
@@ -90,7 +120,28 @@ public class ReporteControllerV2 {
                 linkTo(methodOn(ReporteControllerV2.class).getCursosMasVendidos()).withSelfRel());
 
         return ResponseEntity.ok(collectionModel);
+    }*/
+
+    @GetMapping("/cursos-mas-vendidos")
+    @Operation(summary = "Obtener cursos más vendidos")
+    public ResponseEntity<CollectionModel<EntityModel<Map<String, String>>>> getCursosMasVendidos() {
+        List<String> titulos = reporteService.obtenerCursosMasVendidos();
+
+        List<EntityModel<Map<String, String>>> modelos = titulos.stream()
+                .map(titulo -> {
+                    Map<String, String> body = Map.of("Curso", titulo);
+                    return EntityModel.of(body);
+                })
+                .collect(Collectors.toList());
+
+        CollectionModel<EntityModel<Map<String, String>>> collectionModel = CollectionModel.of(
+                modelos,
+                linkTo(methodOn(ReporteControllerV2.class).getCursosMasVendidos()).withSelfRel()
+        );
+
+        return ResponseEntity.ok(collectionModel);
     }
+
 
 
     @GetMapping("/pagos-por-tipo")
